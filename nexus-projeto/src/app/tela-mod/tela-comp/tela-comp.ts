@@ -46,7 +46,7 @@ export class TelaComp {
   }
 
   // ===== Texto alvo que ativa o balão =====
-  texto: string = ' ';
+  texto: string = 'O medo é o que mais as pessoas têm em comum. Todos têm medo de alguma coisa. Mas esse medo pode se manifestar de muitas maneiras. Não é o que você teme, mas como você lida com ele. Como você se deixa afetar.';
 
   // Popover de seleção na lista de mensagens (grifar/definir/resumir)
   @ViewChild('mensagensArea') mensagensArea!: ElementRef<HTMLElement>;
