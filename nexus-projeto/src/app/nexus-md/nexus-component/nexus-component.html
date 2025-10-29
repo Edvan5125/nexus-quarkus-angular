@@ -1,1 +1,34 @@
-<p>nexus-component works!</p>
+<div class="caixa-entrada">
+  <div class="cartao-entrada">
+    <h1 class="titulo">Nexus</h1>
+    <p class="subtitulo">Entre para continuar</p>
+
+    <input
+      type="email"
+      [value]="email"
+      (input)="email = $event.target.value"
+      placeholder="E-mail"
+      aria-label="email"
+    />
+
+    <input
+      type="texto"
+      [value]="usuario"
+      (input)="usuario = $event.target.value"
+      placeholder="Usuário"
+      aria-label="usuario"
+    />
+
+    <input
+      type="password"
+      [value]="password"
+      (input)="password = $event.target.value"
+      placeholder="Senha"
+      aria-label="password"
+    />
+
+    <button (click)="entrar()">Entrar</button>
+
+    <p class="mensagem-erro" *ngIf="mensagemErro">{{ mensagemErro }}</p>
+  </div>
+</div>

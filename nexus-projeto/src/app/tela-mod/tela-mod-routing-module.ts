@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NexusComponent } from './nexus-component/nexus-component';
+import { TelaComp } from './tela-comp/tela-comp';
 
 const routes: Routes = [
-  { path: '', component: NexusComponent }
+  {
+    path: '', component: TelaComp
+  }
 ];
 
 @NgModule({
-  // Uso correto em módulo carregado sob demanda: forChild
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class NexusRoutingModule {}
+export class TelaModRoutingModule { }

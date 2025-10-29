@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+.caixa-chat {
+  display: flex;
+  height: 100vh;
+  background: #121212;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+/* barra lateral (nome no HTML: barra-lateral) */
+.barra-lateral {
+  width: 70px;
+  background: linear-gradient(180deg, #1a1a1a, #0f0f0f);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+/* logo */
+.logo {
+  color: #a855f7;
+  font-weight: 700;
+  margin-bottom: 40px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 20px;
+}
+
+/* menu e botões laterais */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+/* botões da barra lateral (HTML usa botao-editar e botao-config) */
+.botao-editar,
+.botao-config {
+  background: none;
+  border: none;
+  color: #a855f7;
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.botao-editar:hover,
+.botao-config:hover {
+  color: #c084fc;
+}
+
+/* área principal do chat (HTML: area-conversa) */
+.area-conversa {
+  flex: 1;
+  background: #1b1b1b;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* cabeçalho do chat (HTML: cabecalho-conversa) */
+.cabecalho-conversa {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: #141414;
+  border-bottom: 1px solid #2a2a2a;
+  position: relative;
+}
+
+.cabecalho-esquerda {
+  display: flex;
+  align-items: center;
+}
+
+.logo-titulo {
+  color: #a855f7;
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: 18px;
+}
+
+.cabecalho-direita {
+  display: flex;
+  align-items: center;
+}
+
+.perfil {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+
+.foto-perfil {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #0f0f0f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a855f7;
+  font-size: 18px;
+}
+
+.perfil-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  text-align: right;
+}
+
+.perfil-nome {
+  font-weight: 600;
+  color: #fff;
+}
+
+.perfil-email {
+  color: #cbd5e1;
+}
+
+/* botão de abrir perfil */
+.botao-perfil {
+  background: none;
+  border: none;
+  color: #a855f7;
+  font-size: 18px;
+  margin-left: 8px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+}
+.botao-perfil:hover { background: rgba(168,85,247,0.08); }
+
+/* bloco de perfil (dropdown) */
+.bloco-perfil {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background: #0f0f0f;
+  border: 1px solid #2a2a2a;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  border-radius: 10px;
+  z-index: 40;
+  min-width: 220px;
+}
+.conteudo-bloco { padding: 14px; color: #fff; }
+.titulo-bloco { font-weight: 700; color: #a855f7; margin-bottom: 10px; }
+.item-bloco { margin-bottom: 8px; font-size: 13px; color: #e6e6e6; }
+.acoes-bloco { display: flex; justify-content: flex-end; }
+.botao-fechar { background: #a855f7; border: none; color: #fff; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+.botao-fechar:hover { background: #9333ea; }
+
+/* lista de mensagens (HTML: lista-mensagens) */
+.lista-mensagens {
+  flex: 1;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* bolhas de mensagem — mantenho .usuario e .nexus caso msg.sender seja 'usuario' ou 'nexus' */
+.usuario, .nexus {
+  padding: 10px 15px;
+  border-radius: 25px;
+  max-width: 60%;
+  color: #fff;
+}
+.usuario { align-self: flex-start; background: #7e22ce; }
+.nexus { align-self: flex-end;   background: #9333ea; }
+
+/* área de input (HTML: area-entrada) */
+.area-entrada {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background: #141414;
+  border-top: 1px solid #2a2a2a;
+}
+.area-entrada input {
+  flex: 1;
+  background: #000;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 20px;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+}
+
+/* botão para abrir painel de texto */
+.botao-texto {
+  background: #0f172a;
+  border: 1px solid #334155;
+  color: #e2e8f0;
+  font-size: 14px;
+  margin-left: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.botao-texto:hover { background: #111827; }
+
+/* botão de enviar (HTML: botao-enviar) */
+.botao-enviar {
+  background: #a855f7;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  margin-left: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.06s;
+}
+.botao-enviar:hover { background: #9333ea; transform: translateY(-1px); }
+
+/* ===== Estilos do Leitor de Texto integrado ===== */
+/* (removidos estilos do painel antigo) */
+
+/* Destaques de grifo */
+.marca-vermelho { background: #fca5a5; color: #111; border-radius: 3px; padding: 0 2px; }
+.marca-azul { background: #93c5fd; color: #111; border-radius: 3px; padding: 0 2px; }
+.marca-verde { background: #86efac; color: #111; border-radius: 3px; padding: 0 2px; }
+
+/* scrollbar para container de mensagens */
+.lista-mensagens::-webkit-scrollbar { width: 8px; }
+.lista-mensagens::-webkit-scrollbar-thumb { background: #3b3b3b; border-radius: 10px; }
+
+/* animação de "digitando..." */
+.typing {
+  display: inline-block;
+  position: relative;
+}
+
+.typing::after {
+  content: '...';
+  animation: dots 1.2s steps(3, end) infinite;
+}
+
+@keyframes dots {
+  0% { content: ''; }
+  33% { content: '.'; }
+  66% { content: '..'; }
+  100% { content: '...'; }
+}
+
+/* Popover de seleção (bolha) */
+.popup-selecao {
+  position: absolute;
+  z-index: 50;
+  background: #0f0f0f;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  padding: 6px 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  color: #e5e7eb;
+}
+.popup-selecao::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 100%;
+  border-width: 6px;
+  border-style: solid;
+  border-color: #2a2a2a transparent transparent transparent;
+}
+.popup-botoes {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.popup-botoes button { background: #a855f7; border: none; color: #fff; padding: 6px 8px; border-radius: 8px; cursor: pointer; font-size: 12px; }
+.popup-botoes .vermelho { background: #ef4444; }
+.popup-botoes .azul { background: #3b82f6; }
+.popup-botoes .verde { background: #10b981; }
+.popup-botoes .fechar { background: #27272a; border: 1px solid #3f3f46; color: #e5e7eb; }
+.popup-botoes .fechar:hover { background: #3f3f46; }
+
+/* Balão especial dentro da conversa (tipo 'balao-acao') */
+.balao-analise {
+  background: #0f0f0f;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 10px;
+  color: #e5e7eb;
+  max-width: 80%;
+}
+.balao-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.balao-titulo { color: #10b981; font-weight: 700; }
+.balao-acoes { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px; }
+.balao-acoes button { background: #a855f7; border: none; color: #fff; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 13px; }
+.balao-acoes .dica { color: #9ca3af; font-size: 12px; }
+.definir-inline { display: flex; gap: 6px; }
+.definir-inline input { background: #000; border: 1px solid #334155; border-radius: 8px; padding: 6px 8px; color: #fff; }
+.balao-bloco { background: #0b0b0b; border: 1px solid #2a2a2a; border-radius: 8px; padding: 8px; }
+.balao-bloco h4 { margin: 0 0 6px 0; color: #a855f7; }
+
+/* Balão flutuante de definição/resumo (verde), próximo à seleção */
+.balao-definicao {
+  position: absolute;
+  z-index: 60;
+  background: #b7f7b2; /* verde claro */
+  color: #111;
+  border: 1px solid #7ad07a;
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+  max-width: 320px;
+}
+.balao-definicao::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 100%;
+  border-width: 8px;
+  border-style: solid;
+  border-color: #7ad07a transparent transparent transparent;
+}
+.balao-def-topo { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.balao-def-topo .fechar { background: #2e2e2e; color: #fff; border: 1px solid #3f3f46; padding: 2px 6px; border-radius: 6px; cursor: pointer; }
+.titulo-colorido { font-weight: 800; letter-spacing: 0.5px; color: #046307; }
+.balao-def-corpo { font-size: 14px; line-height: 1.4; }
+.balao-def-sins { margin-top: 6px; font-size: 13px; }
+.balao-def-sins ul { margin: 4px 0 0 18px; padding: 0; }
+.balao-def-sins li { margin: 2px 0; }
