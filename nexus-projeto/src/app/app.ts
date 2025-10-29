@@ -1,3 +1,6 @@
+// este e o componente raiz do app
+// ele define o seletor o html e o css principal
+// o sinal title guarda o nome do projeto de um jeito reativo
 import { Component, signal } from '@angular/core';
 
 @Component({

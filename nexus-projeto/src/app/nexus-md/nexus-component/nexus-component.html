@@ -1,6 +1,9 @@
+<!-- tela de login simples com email usuario e senha -->
 <div class="caixa-entrada">
   <div class="cartao-entrada">
+    <!-- titulo da tela -->
     <h1 class="titulo">Nexus</h1>
+    <!-- subtitulo para orientar o usuario -->
     <p class="subtitulo">Entre para continuar</p>
 
     <input
@@ -27,8 +30,10 @@
       aria-label="password"
     />
 
-    <button (click)="entrar()">Entrar</button>
+  <!-- botao que chama a funcao entrar -->
+  <button (click)="entrar()">Entrar</button>
 
+    <!-- mensagem de erro aparece aqui quando algo esta errado -->
     <p class="mensagem-erro" *ngIf="mensagemErro">{{ mensagemErro }}</p>
   </div>
 </div>

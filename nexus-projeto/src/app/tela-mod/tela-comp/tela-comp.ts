@@ -2,10 +2,13 @@ import { Component, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-// componente do chat simples
-// selector e o nome da tag no html
-// standalone true quer dizer que ele funciona sem precisar estar em um ngmodule
-// imports lista modulos que o template usa como ngfor e ngmodel
+// este e o componente do chat
+// selector e o nome da tag que aparece no html
+// standalone true quer dizer que ele funciona sem precisar de um ngmodule
+// imports e a lista de modulos que o template usa como ngfor e ngmodel
+// templateurl aponta para o arquivo de marcação html do componente
+// styleurls contem a folha de estilos css especifica deste componente
+// este componente e autocontido e pode ser usado diretamente em outras telas
 @Component({
   selector: 'app-tela-comp',
   standalone: true,
@@ -14,7 +17,17 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule, NgFor]
 })
 export class TelaComp {
-  // mensagens do chat (suporta mensagens especiais tipo "balao-acao")
+  // lista de mensagens do chat suporta mensagem especial chamada balao acao
+  // cada item pode conter:
+  // - text: conteudo textual simples da mensagem (opcional)
+  // - sender: 'usuario' ou 'nexus' para diferenciar origem
+  // - typing: flag usada para mostrar estado de digitando
+  // - tipo: quando 'balao-acao' indica uma mensagem especial com botoes/acoes
+  // - textoAlvo: texto completo que pode ser resumido/definido no balao
+  // - palavra: termo alvo para definicao e sinonimos
+  // - resumo: resultado de um resumo gerado
+  // - definicao: significado da palavra
+  // - sinonimos: lista de termos relacionados
   mensagem: Array<{
     text?: string;
     sender: 'usuario' | 'nexus';
@@ -27,14 +40,18 @@ export class TelaComp {
     sinonimos?: string[];
   }> = [];
 
-  // valor ligado ao campo de input com ngModel
+  // valor ligado ao campo de input com ngmodel
+  // o binding bidirecional permite ler e limpar o campo apos o envio
   novaMensagem = '';
 
-  // informações do usuário (recuperadas do localStorage após login)
+  // informacoes do usuario recuperadas do localstorage apos login
+  // chaves usadas: 'usuario' e 'email'; se ausentes aplica padroes
+  // estes dados sao usados para personalizar a interface
   userNome: string = localStorage.getItem('usuario') || 'Usuário';
   userEmail: string = localStorage.getItem('email') || '';
 
-  // controla visibilidade do bloco de perfil
+  // controla a aparicao do bloco de perfil
+  // alternado por toggleperfil e fechado por fecharperfil
   showPerfil: boolean = false;
 
   togglePerfil(): void {
@@ -45,17 +62,27 @@ export class TelaComp {
     this.showPerfil = false;
   }
 
-  // ===== Texto alvo que ativa o balão =====
+  // texto alvo que ativa o balao de acoes
+  // quando o usuario envia exatamente este texto o nexus cria uma mensagem
+  // especial com opcoes de resumo e definicao em um balao de acoes
   texto: string = 'O medo é o que mais as pessoas têm em comum. Todos têm medo de alguma coisa. Mas esse medo pode se manifestar de muitas maneiras. Não é o que você teme, mas como você lida com ele. Como você se deixa afetar.';
 
-  // Popover de seleção na lista de mensagens (grifar/definir/resumir)
+  // popover que aparece quando voce seleciona um trecho para grifar definir ou resumir
+  // mensagensarea referencia o container de mensagens para calcular selecao e posicao
+  // showpopup controla a visibilidade do popover de acoes (grifar/definir/resumir)
+  // popupx/popupy sao coordenadas relativas ao container mensagensarea
+  // ultimoclickdentropopup ajuda a decidir se devemos fechar ao clicar fora
   @ViewChild('mensagensArea') mensagensArea!: ElementRef<HTMLElement>;
   showPopup: boolean = false;
   popupX = 0;
   popupY = 0;
   private ultimoClickDentroPopup = false;
 
-  // Balão flutuante de definição/resumo (verde), ancorado à seleção
+  // balao flutuante de definicao ou resumo de cor verde ancorado na selecao
+  // showbalaoacao liga/desliga o balao verde informativo
+  // balaox/balaoy posicionam o balao perto do ponto de selecao
+  // balaotitulo e balaconteudo exibem o resultado (resumo/definicao)
+  // balaosinonimos lista sinonimos quando aplicavel
   showBalaoAcao: boolean = false;
   balaoX = 0;
   balaoY = 0;
@@ -63,6 +90,8 @@ export class TelaComp {
   balaoConteudo = '';
   balaoSinonimos: string[] = [];
 
+  // dicionario offline para definicoes e sinonimos
+  // as chaves devem estar normalizadas em minusculo sem acentos 
   dicionario: Record<string, { significado: string; sinonimos: string[] }> = {
     'medo': { significado: 'Sentimento de apreensão ou pavor diante de algo perigoso ou desconhecido.', sinonimos: ['temor', 'receio', 'pavor'] },
     'pessoas': { significado: 'Seres humanos em geral; indivíduos.', sinonimos: ['indivíduos', 'gente'] },
@@ -74,7 +103,12 @@ export class TelaComp {
     'afetar': { significado: 'Causar efeito; influenciar.', sinonimos: ['influenciar', 'impactar', 'atingir'] },
   };
 
-  // exibe popover quando há seleção dentro da lista de mensagens
+  // mostra o popover quando existe selecao dentro da lista de mensagens
+  // passos:
+  // 1) pega a selecao atual do documento e verifica se esta dentro do container
+  // 2) se estiver vazia (isCollapsed) oculta o popup
+  // 3) calcula o retangulo da selecao e do container para obter posicao relativa
+  // 4) posiciona o popup acima da selecao com margem minima e exibe
   onMouseUpMensagens(_event?: MouseEvent): void {
     const sel = this.getSelecaoIn(this.mensagensArea?.nativeElement);
     if (!sel || sel.isCollapsed) { this.showPopup = false; return; }
@@ -83,12 +117,14 @@ export class TelaComp {
     const host = this.mensagensArea?.nativeElement;
     if (!host) { this.showPopup = false; return; }
     const hostRect = host.getBoundingClientRect();
-    // posiciona acima da seleção, com pequeno deslocamento
+    // posiciona acima da selecao com pequeno deslocamento
     this.popupX = Math.max(8, rect.left - hostRect.left);
     this.popupY = Math.max(8, rect.top - hostRect.top - 44);
     this.showPopup = true;
   }
 
+  // devolve a selecao somente se ela estiver contida dentro do container informado
+  // isso evita abrir popups para selecoes fora da area de mensagens
   private getSelecaoIn(container?: HTMLElement | null): Selection | null {
     const sel = window.getSelection();
     if (!sel || sel.rangeCount === 0) return null;
@@ -96,7 +132,9 @@ export class TelaComp {
     return container && container.contains(range.commonAncestorContainer) ? sel : null;
   }
 
-  // Resumo da seleção atual (mostra em balão verde)
+  // cria um resumo do texto selecionado e mostra no balao verde
+  // usa resumirsimples para pegar as duas primeiras frases do trecho
+  // mantem a posicao baseada nas coordenadas calculadas do popup
   resumirSelecao(): void {
     const sel = this.getSelecaoIn(this.mensagensArea?.nativeElement);
     const alvo = sel && !sel.isCollapsed ? sel.toString() : '';
@@ -105,12 +143,17 @@ export class TelaComp {
     this.mostrarBalaoAcao('Resumo', resumo, this.popupX, this.popupY);
   }
 
+  // resumo naive: divide por pontuacao e retorna ate duas frases
+  // util para demonstracao sem libs externas
   resumirSimples(texto: string): string {
     const frases = texto.split(/(?<=[.!?])\s+/).filter(f => f.trim().length);
     if (frases.length <= 2) return frases.join(' ');
     return frases.slice(0, 2).join(' ');
   }
 
+  // aplica marcação visual ao texto selecionado envolvendo com <span class="marca-cor">
+  // tenta usar surroundcontents, se falhar (selecao cruzando nos) faz extraire inserir
+  // ao final limpa a selecao e reabre o popup para permitir novas acoes
   grifarTexto(cor: 'vermelho' | 'azul' | 'verde'): void {
     const sel = this.getSelecaoIn(this.mensagensArea?.nativeElement);
     if (!sel || sel.isCollapsed) return;
@@ -124,10 +167,12 @@ export class TelaComp {
       range.insertNode(span);
     }
     sel.removeAllRanges();
-    // mantém o popover visível
+    // mantem o popover visivel
     this.onMouseUpMensagens();
   }
 
+  // remove todas as marcacoes <span class="marca-..."> preservando o texto interno
+  // desfaz grifos para restaurar o conteudo original renderizado
   limparGrifosTexto(): void {
     const container = this.mensagensArea?.nativeElement;
     if (!container) return;
@@ -139,6 +184,9 @@ export class TelaComp {
     });
   }
 
+  // consulta o dicionario offline para a palavra selecionada
+  // normaliza a chave para minusculo sem acentos (nfd + regex de diacriticos)
+  // se nao houver definicao exibe mensagem padrao
   definirSelecao(): void {
     const sel = this.getSelecaoIn(this.mensagensArea?.nativeElement);
     const textoSel = sel && !sel.isCollapsed ? sel.toString().trim() : '';
@@ -151,20 +199,25 @@ export class TelaComp {
     this.mostrarBalaoAcao(titulo, conteudo, this.popupX, this.popupY, sins);
   }
 
+  // configura e exibe o balao verde com titulo conteudo e sinonimos opcionais
+  // y recebe um ajuste para evitar sobreposicao com o popup
   mostrarBalaoAcao(titulo: string, conteudo: string, x: number, y: number, sins: string[] = []): void {
     this.balaoTitulo = titulo;
     this.balaoConteudo = conteudo;
     this.balaoSinonimos = sins;
     this.balaoX = x;
-    this.balaoY = y - 8; // pequeno ajuste
+    this.balaoY = y - 8; // ajuste
     this.showBalaoAcao = true;
   }
 
   // ações no balão de mensagem especial
+  // preenche a propriedade resumo da mensagem especial usando o textoalvo
   resumirTextoAlvo(msg: { textoAlvo?: string; resumo?: string }): void {
     msg.resumo = this.resumirSimples(msg.textoAlvo || '');
   }
 
+  // preenche definicao e sinonimos para a palavra do balao-acao
+  // aplica a mesma normalizacao de chave usada em definirselecao 
   definirPalavraBalao(msg: { palavra?: string; definicao?: string; sinonimos?: string[] }): void {
     const chave = (msg.palavra || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
     const def = this.dicionario[chave];
@@ -172,6 +225,8 @@ export class TelaComp {
     else { msg.definicao = 'Sem definição local.'; msg.sinonimos = []; }
   }
 
+  // fecha o popup caso o ultimo clique nao tenha sido dentro dele
+  // usado em conjunto com o listener de clique no documento 
   fecharPopup(): void {
     if (!this.ultimoClickDentroPopup) {
       this.showPopup = false;
@@ -179,14 +234,17 @@ export class TelaComp {
     this.ultimoClickDentroPopup = false;
   }
 
-  // fecha com ESC
+  // fecha quando aperta a tecla esc
   @HostListener('document:keydown.escape')
   onEsc(): void {
     this.showPopup = false;
     this.showBalaoAcao = false;
   }
 
-  // clique fora do popover
+  // fecha quando clica fora do popover 
+  // se o clique ocorrer dentro do popup marca a flag para nao fechar imediatamente
+  // se o clique for dentro da area de mensagens valida a selecao antes de fechar
+  // caso contrario fecha ambos popup e balao
   @HostListener('document:click', ['$event'])
   onDocClick(ev: MouseEvent): void {
     const popup = document.getElementById('popup-selecao');
@@ -194,7 +252,7 @@ export class TelaComp {
       this.ultimoClickDentroPopup = true;
       return;
     }
-    // se o clique foi fora da lista de mensagens e do popup, fecha
+  // se o clique for fora da lista de mensagens e do popup fecha
     const area = this.mensagensArea?.nativeElement;
     if (area && (ev.target instanceof Node) && (area.contains(ev.target) || popup?.contains(ev.target))) {
       const sel = this.getSelecaoIn(area);
@@ -205,36 +263,38 @@ export class TelaComp {
     this.showBalaoAcao = false;
   }
 
-  // funcao usada pelo ngFor para melhorar desempenho
-  // o angular usa esse valor para identificar cada item da lista
+  // funcao usada pelo ngfor para melhorar desempenho
+  // o angular usa esse numero para identificar cada item da lista
+  // evita recriar componentes quando apenas o conteudo muda
   trackByIndex(index: number): number {
     return index;
   }
 
   // quando o usuario envia uma mensagem este metodo e chamado
-  // 1 pega o texto e tira espacos com trim
-  // 2 se estiver vazio nao faz nada
-  // 3 adiciona a mensagem do usuario na lista
-  // 4 adiciona uma mensagem provisoria dizendo que o nexus esta digitando
-  // 5 depois de um tempo substitui a mensagem provisoria por uma resposta gerada
+  // passo 1 pega o texto e remove espacos nas pontas com trim
+  // passo 2 se ficar vazio nao faz nada
+  // passo 3 adiciona a mensagem do usuario na lista
+  // passo 4 adiciona uma mensagem provisoria dizendo que o nexus esta digitando
+  // passo 5 depois de um tempo troca pela resposta gerada
+  // observacao: o tempo curto (50ms) simula processamento assinc sem travar a ui
   mandarMensagem(): void {
     const texto = this.novaMensagem.trim();
     if (!texto) return;
 
-    // adiciona mensagem do usuario
+  // adiciona a mensagem do usuario
     this.mensagem.push({ text: texto, sender: 'usuario' });
     this.novaMensagem = '';
 
-    // adiciona placeholder de "digitando"
+  // adiciona um aviso de digitando
     this.mensagem.push({ text: 'nexus esta digitando', sender: 'nexus', typing: true });
 
-    // apos um tempo substitui pela resposta final
+    // depois de um tempo substitui pela resposta final
     setTimeout(() => {
-      // remove qualquer mensagem que estava marcada como digitando
+      // remove qualquer mensagem que estava como digitando
       this.mensagem = this.mensagem.filter(m => !m.typing);
 
       if (texto === this.texto.trim()) {
-        // mensagem específica: o nexus pergunta e entrega o balão de ações
+        // se o texto e igual ao alvo o nexus pergunta e mostra o balao de acoes
         this.mensagem.push({ text: 'O que deseja fazer com o texto?', sender: 'nexus' });
         this.mensagem.push({ sender: 'nexus', tipo: 'balao-acao', textoAlvo: texto, palavra: '', resumo: '', definicao: '', sinonimos: [] });
       } else {
@@ -244,8 +304,14 @@ export class TelaComp {
     }, 50);
   }
 
-  // gera respostas com base em palavras chave do texto
+  // gera respostas simples com base em palavras chave do texto
   // tudo em minusculo e sem acentos para facilitar a verificacao
+  // regras:
+  // - saudações: oi/ola/bom dia
+  // - nome: responde o nome do bot
+  // - hora: usa tolocaletimestring pt-br com hh:mm
+  // - tempo/previsao: resposta generica
+  // - ajuda/funcionalidades: lista capacidades basicas
   gerarRespostaAutomatica(texto: string): string {
     const msg = texto.toLowerCase();
 

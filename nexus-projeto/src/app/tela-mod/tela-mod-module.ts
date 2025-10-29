@@ -5,7 +5,7 @@ import { TelaModRoutingModule } from './tela-mod-routing-module';
 import { TelaComp } from './tela-comp/tela-comp';
 
 @NgModule({
-  // TelaComp é standalone — deve ser IMPORTADO, não declarado
+  // telacomp e standalone entao precisa ser importado aqui
   imports: [
     CommonModule,
     TelaModRoutingModule,

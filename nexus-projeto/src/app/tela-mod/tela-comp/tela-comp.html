@@ -1,5 +1,7 @@
+<!-- layout principal com barra lateral e area de conversa -->
 <div class="caixa-chat">
 
+  <!-- barra lateral com botoes -->
   <aside class="barra-lateral">
     <div class="menu">
       <button class="botao-editar">✎</button>
@@ -7,11 +9,12 @@
     </div>
   </aside>
 
+  <!-- area principal onde ficam as mensagens -->
   <main class="area-conversa">
     <header class="cabecalho-conversa">
       <div class="cabecalho-esquerda">
-        <!-- logo (ajustada) -->
-        <div class="logo-titulo">NEXUS</div>
+  <!-- logotipo simples do app -->
+  <div class="logo-titulo">NEXUS</div>
       </div>
 
       <div class="cabecalho-direita">
@@ -19,10 +22,10 @@
           <div class="perfil-info">
           
           </div>
-          <!-- botão que abre o bloco com detalhes do usuário -->
+          <!-- botao que abre o bloco com detalhes do usuario -->
           <button class="botao-perfil" (click)="togglePerfil()" aria-expanded="{{showPerfil}}" aria-controls="bloco-perfil">👤</button>
 
-          <!-- bloco exibido quando showPerfil === true -->
+          <!-- bloco com dados do perfil aparece quando showperfil esta ativo -->
           @if (showPerfil) {
           <div id="bloco-perfil" class="bloco-perfil" role="dialog" aria-modal="false">
             <div class="conteudo-bloco">
@@ -39,12 +42,13 @@
       </div>
     </header>
 
-    <div class="lista-mensagens" #mensagensArea (mouseup)="onMouseUpMensagens($event)">
+  <!-- lista onde as mensagens sao mostradas -->
+  <div class="lista-mensagens" #mensagensArea (mouseup)="onMouseUpMensagens($event)">
       <div
         *ngFor="let msg of mensagem; trackBy: trackByIndex"
         [ngClass]="msg.sender"
       >
-        <!-- Se for mensagem de digitação, mostra animação -->
+  <!-- se for mensagem do tipo digitando mostra uma animacao -->
         @if (msg.typing) {
           <p><strong>NexusBot:</strong> <span class="typing">digitando</span></p>
         } @else {
@@ -90,7 +94,7 @@
         }
       </div>
 
-      <!-- Popover de seleção para toda a conversa -->
+  <!-- popover de selecao para a conversa -->
       @if (showPopup) {
         <div id="popup-selecao" class="popup-selecao" [style.left.px]="popupX" [style.top.px]="popupY">
           <div class="popup-botoes">
@@ -104,7 +108,7 @@
         </div>
       }
 
-      <!-- Balão flutuante de definição/resumo -->
+  <!-- balao flutuante com definicao ou resumo -->
       @if (showBalaoAcao) {
         <div class="balao-definicao" [style.left.px]="balaoX" [style.top.px]="balaoY">
           <div class="balao-def-topo">
@@ -124,7 +128,8 @@
       }
     </div>
 
-    <div class="area-entrada">
+  <!-- area onde digita e envia mensagens -->
+  <div class="area-entrada">
       <input
         type="text"
         [(ngModel)]="novaMensagem"

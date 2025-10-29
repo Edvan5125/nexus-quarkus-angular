@@ -7,7 +7,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  // Uso correto em módulo carregado sob demanda: forChild
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })

@@ -1,3 +1,6 @@
+// este e o modulo principal do app
+// aqui falamos para o angular quais partes fazem parte do app
+// tambem dizemos qual componente inicia primeiro
 import { NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 

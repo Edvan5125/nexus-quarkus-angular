@@ -1,3 +1,4 @@
+/* estilos gerais do chat com foco em contraste e legibilidade */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 .caixa-chat {
@@ -8,7 +9,7 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* barra lateral (nome no HTML: barra-lateral) */
+/* barra lateral com botoes de acoes */
 .barra-lateral {
   width: 70px;
   background: linear-gradient(180deg, #1a1a1a, #0f0f0f);
@@ -18,7 +19,7 @@
   padding-top: 20px;
 }
 
-/* logo */
+/* logo do app */
 .logo {
   color: #a855f7;
   font-weight: 700;
@@ -28,7 +29,7 @@
   font-size: 20px;
 }
 
-/* menu e botões laterais */
+/* menu e botoes da lateral */
 .menu {
   display: flex;
   flex-direction: column;
@@ -36,7 +37,7 @@
   align-items: center;
 }
 
-/* botões da barra lateral (HTML usa botao-editar e botao-config) */
+/* botoes da barra lateral usados no html botao editar e botao config */
 .botao-editar,
 .botao-config {
   background: none;
@@ -51,7 +52,7 @@
   color: #c084fc;
 }
 
-/* área principal do chat (HTML: area-conversa) */
+/* area principal do chat */
 .area-conversa {
   flex: 1;
   background: #1b1b1b;
@@ -60,7 +61,7 @@
   position: relative;
 }
 
-/* cabeçalho do chat (HTML: cabecalho-conversa) */
+/* cabecalho do chat */
 .cabecalho-conversa {
   display: flex;
   justify-content: space-between;
@@ -123,7 +124,7 @@
   color: #cbd5e1;
 }
 
-/* botão de abrir perfil */
+/* botao para abrir o perfil */
 .botao-perfil {
   background: none;
   border: none;
@@ -136,7 +137,7 @@
 }
 .botao-perfil:hover { background: rgba(168,85,247,0.08); }
 
-/* bloco de perfil (dropdown) */
+/* bloco de perfil que abre abaixo do cabecalho */
 .bloco-perfil {
   position: absolute;
   top: 60px;
@@ -155,7 +156,7 @@
 .botao-fechar { background: #a855f7; border: none; color: #fff; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
 .botao-fechar:hover { background: #9333ea; }
 
-/* lista de mensagens (HTML: lista-mensagens) */
+/* lista de mensagens da conversa */
 .lista-mensagens {
   flex: 1;
   padding: 25px;
@@ -166,7 +167,7 @@
   position: relative;
 }
 
-/* bolhas de mensagem — mantenho .usuario e .nexus caso msg.sender seja 'usuario' ou 'nexus' */
+/* bolhas de mensagem para usuario e nexus */
 .usuario, .nexus {
   padding: 10px 15px;
   border-radius: 25px;
@@ -176,7 +177,7 @@
 .usuario { align-self: flex-start; background: #7e22ce; }
 .nexus { align-self: flex-end;   background: #9333ea; }
 
-/* área de input (HTML: area-entrada) */
+/* area onde digitamos a mensagem */
 .area-entrada {
   display: flex;
   align-items: center;
@@ -195,7 +196,7 @@
   outline: none;
 }
 
-/* botão para abrir painel de texto */
+/* botao extra para abrir painel de texto se existir */
 .botao-texto {
   background: #0f172a;
   border: 1px solid #334155;
@@ -208,7 +209,7 @@
 }
 .botao-texto:hover { background: #111827; }
 
-/* botão de enviar (HTML: botao-enviar) */
+/* botao de enviar mensagem */
 .botao-enviar {
   background: #a855f7;
   border: none;
@@ -222,19 +223,18 @@
 }
 .botao-enviar:hover { background: #9333ea; transform: translateY(-1px); }
 
-/* ===== Estilos do Leitor de Texto integrado ===== */
-/* (removidos estilos do painel antigo) */
+/* estilos do leitor de texto integrado foram simplificados */
 
-/* Destaques de grifo */
+/* estilos das marcas de grifo coloridas */
 .marca-vermelho { background: #fca5a5; color: #111; border-radius: 3px; padding: 0 2px; }
 .marca-azul { background: #93c5fd; color: #111; border-radius: 3px; padding: 0 2px; }
 .marca-verde { background: #86efac; color: #111; border-radius: 3px; padding: 0 2px; }
 
-/* scrollbar para container de mensagens */
+/* estilos da barra de rolagem da lista de mensagens */
 .lista-mensagens::-webkit-scrollbar { width: 8px; }
 .lista-mensagens::-webkit-scrollbar-thumb { background: #3b3b3b; border-radius: 10px; }
 
-/* animação de "digitando..." */
+/* animacao do texto digitando */
 .typing {
   display: inline-block;
   position: relative;
@@ -252,7 +252,7 @@
   100% { content: '...'; }
 }
 
-/* Popover de seleção (bolha) */
+/* popover de selecao que aparece perto da selecao de texto */
 .popup-selecao {
   position: absolute;
   z-index: 50;
@@ -284,7 +284,7 @@
 .popup-botoes .fechar { background: #27272a; border: 1px solid #3f3f46; color: #e5e7eb; }
 .popup-botoes .fechar:hover { background: #3f3f46; }
 
-/* Balão especial dentro da conversa (tipo 'balao-acao') */
+/* balao especial dentro da conversa do tipo balao acao */
 .balao-analise {
   background: #0f0f0f;
   border: 1px solid #2a2a2a;
@@ -303,7 +303,7 @@
 .balao-bloco { background: #0b0b0b; border: 1px solid #2a2a2a; border-radius: 8px; padding: 8px; }
 .balao-bloco h4 { margin: 0 0 6px 0; color: #a855f7; }
 
-/* Balão flutuante de definição/resumo (verde), próximo à seleção */
+/* balao flutuante de definicao ou resumo cor verde perto da selecao */
 .balao-definicao {
   position: absolute;
   z-index: 60;
