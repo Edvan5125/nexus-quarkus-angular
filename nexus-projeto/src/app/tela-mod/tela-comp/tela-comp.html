@@ -1,0 +1,138 @@
+<div class="caixa-chat">
+
+  <aside class="barra-lateral">
+    <div class="menu">
+      <button class="botao-editar">✎</button>
+      <button class="botao-config">⚙</button>
+    </div>
+  </aside>
+
+  <main class="area-conversa">
+    <header class="cabecalho-conversa">
+      <div class="cabecalho-esquerda">
+        <!-- logo (ajustada) -->
+        <div class="logo-titulo">NEXUS</div>
+      </div>
+
+      <div class="cabecalho-direita">
+        <div class="perfil" role="region" aria-label="perfil">
+          <div class="perfil-info">
+          
+          </div>
+          <!-- botão que abre o bloco com detalhes do usuário -->
+          <button class="botao-perfil" (click)="togglePerfil()" aria-expanded="{{showPerfil}}" aria-controls="bloco-perfil">👤</button>
+
+          <!-- bloco exibido quando showPerfil === true -->
+          @if (showPerfil) {
+          <div id="bloco-perfil" class="bloco-perfil" role="dialog" aria-modal="false">
+            <div class="conteudo-bloco">
+              <div class="titulo-bloco">Meu Perfil</div>
+              <div class="item-bloco"><strong>Usuário:</strong> {{ userNome }}</div>
+              <div class="item-bloco"><strong>E-mail:</strong> {{ userEmail }}</div>
+              <div class="acoes-bloco">
+                <button class="botao-fechar" (click)="fecharPerfil()">Fechar</button>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </header>
+
+    <div class="lista-mensagens" #mensagensArea (mouseup)="onMouseUpMensagens($event)">
+      <div
+        *ngFor="let msg of mensagem; trackBy: trackByIndex"
+        [ngClass]="msg.sender"
+      >
+        <!-- Se for mensagem de digitação, mostra animação -->
+        @if (msg.typing) {
+          <p><strong>NexusBot:</strong> <span class="typing">digitando</span></p>
+        } @else {
+          @if (msg.tipo === 'balao-acao') {
+            <div class="balao-analise">
+              <div class="balao-topo">
+                <span class="balao-titulo">Análise do Texto</span>
+              </div>
+              <div class="balao-corpo">
+                <div class="balao-acoes">
+                  <button (click)="resumirTextoAlvo(msg)">Resumir texto</button>
+                  <div class="definir-inline">
+                    <input [(ngModel)]="msg.palavra" placeholder="Palavra" />
+                    <button (click)="definirPalavraBalao(msg)">Definir</button>
+                  </div>
+                  <span class="dica">Dica: selecione trechos nas mensagens para Grifar ou abrir Definição.</span>
+                </div>
+                @if (msg.resumo) {
+                  <div class="balao-bloco">
+                    <h4>Resumo</h4>
+                    <p>{{ msg.resumo }}</p>
+                  </div>
+                }
+                @if (msg.definicao) {
+                  <div class="balao-bloco">
+                    <h4>Definição</h4>
+                    <p>{{ msg.definicao }}</p>
+                    @if (msg.sinonimos?.length) {
+                      <div class="sinonimos">
+                        <span>Sinônimos:</span>
+                        <ul>
+                          <li *ngFor="let s of msg.sinonimos">{{ s }}</li>
+                        </ul>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+          } @else {
+            <p><strong>{{ msg.sender === 'usuario' ? 'Você' : 'NexusBot' }}:</strong> {{ msg.text }}</p>
+          }
+        }
+      </div>
+
+      <!-- Popover de seleção para toda a conversa -->
+      @if (showPopup) {
+        <div id="popup-selecao" class="popup-selecao" [style.left.px]="popupX" [style.top.px]="popupY">
+          <div class="popup-botoes">
+            <button (mousedown)="$event.preventDefault()" (click)="resumirSelecao()">Resumir</button>
+            <button class="vermelho" (mousedown)="$event.preventDefault()" (click)="grifarTexto('vermelho')">Vermelho</button>
+            <button class="azul" (mousedown)="$event.preventDefault()" (click)="grifarTexto('azul')">Azul</button>
+            <button class="verde" (mousedown)="$event.preventDefault()" (click)="grifarTexto('verde')">Verde</button>
+            <button (mousedown)="$event.preventDefault()" (click)="definirSelecao()">Definição</button>
+            <button class="fechar" (click)="fecharPopup()" aria-label="fechar">✖</button>
+          </div>
+        </div>
+      }
+
+      <!-- Balão flutuante de definição/resumo -->
+      @if (showBalaoAcao) {
+        <div class="balao-definicao" [style.left.px]="balaoX" [style.top.px]="balaoY">
+          <div class="balao-def-topo">
+            <span class="titulo-colorido">{{ balaoTitulo }}</span>
+            <button class="fechar" (click)="showBalaoAcao=false">✖</button>
+          </div>
+          <div class="balao-def-corpo">{{ balaoConteudo }}</div>
+          @if (balaoSinonimos.length) {
+            <div class="balao-def-sins">
+              <span>Sinônimos:</span>
+              <ul>
+                <li *ngFor="let s of balaoSinonimos">{{ s }}</li>
+              </ul>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="area-entrada">
+      <input
+        type="text"
+        [(ngModel)]="novaMensagem"
+        placeholder="digite uma mensagem"
+        (keyup.enter)="mandarMensagem()"
+        aria-label="mensagem"
+      />
+        <button class="botao-enviar" (click)="mandarMensagem()" aria-label="enviar">✉️</button>
+    </div>
+  </main>
+</div>
