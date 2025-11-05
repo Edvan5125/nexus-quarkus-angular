@@ -1,0 +1,58 @@
+<div class="config-page" [class.claro]="tema==='claro'" [style.fontSize.px]="tamanhoFonte">
+	<h2>Configuração</h2>
+
+	<section class="bloco">
+		<h3>Aparência (visual)</h3>
+		<div class="linha">
+			<label>Tema:</label>
+			<select [(ngModel)]="tema">
+				<option value="escuro">Escuro</option>
+				<option value="claro">Claro</option>
+			</select>
+		</div>
+		<div class="linha">
+			<label>Cor Primária:</label>
+			<input type="color" [(ngModel)]="corPrimaria" />
+		</div>
+		<div class="linha">
+			<label>Barra Lateral:</label>
+			<input type="color" [(ngModel)]="corBarraLateral" />
+		</div>
+		<div class="linha">
+			<label>Fundo da Conversa:</label>
+			<input type="color" [(ngModel)]="corConversa" />
+		</div>
+		<div class="linha">
+			<label>Tamanho da Fonte: {{tamanhoFonte}}px</label>
+			<input type="range" min="12" max="20" [(ngModel)]="tamanhoFonte" />
+		</div>
+
+		<div class="preview" [style.--primaria]="corPrimaria" [style.--barra]="corBarraLateral" [style.--conversa]="corConversa">
+			<aside class="prev-barra">Barra</aside>
+			<main class="prev-conversa">
+				<div class="msg usuario"><strong>Você:</strong> Exemplo de mensagem do usuário.</div>
+				<div class="msg nexus"><strong>NexusBot:</strong> Exemplo de resposta do bot.</div>
+			</main>
+		</div>
+		<p class="nota">Estas configurações são apenas visuais nesta página e não são aplicadas globalmente.</p>
+	</section>
+
+	<section class="bloco">
+		<h3>Personalidade do Nexus (visual)</h3>
+		<div class="linha">
+			<label>Estilo:</label>
+			<select [(ngModel)]="personalidade">
+				<option>Amigável</option>
+				<option>Profissional</option>
+				<option>Divertido</option>
+				<option>Neutro</option>
+			</select>
+		</div>
+		<div class="linha">
+			<label>Descrição (não funcional):</label>
+			<textarea [(ngModel)]="descricaoPersonalidade" rows="3" placeholder="Descreva a personalidade (apenas visual)"></textarea>
+		</div>
+		<p class="nota">Este bloco é apenas uma prévia visual. Não altera o comportamento do chat.</p>
+	</section>
+
+</div>

@@ -10,6 +10,6 @@ import { NexusRoutingModule } from './nexus-md-routing-module';
     NexusComponent
   ]
 })
-export class NexusMdModule { }
+export class NexusMdModule {}
 
 

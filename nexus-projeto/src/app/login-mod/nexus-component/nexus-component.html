@@ -3,7 +3,7 @@
   <div class="cartao-entrada">
     <!-- titulo da tela -->
     <h1 class="titulo">Nexus</h1>
-    <!-- subtitulo para orientar o usuario -->
+   
     <p class="subtitulo">Entre para continuar</p>
 
     <input
@@ -24,16 +24,16 @@
 
     <input
       type="password"
-      [value]="password"
-      (input)="password = $event.target.value"
+      [value]="senha"
+      (input)="senha = $event.target.value"
       placeholder="Senha"
-      aria-label="password"
+      aria-label="senha"
     />
 
   <!-- botao que chama a funcao entrar -->
   <button (click)="entrar()">Entrar</button>
 
     <!-- mensagem de erro aparece aqui quando algo esta errado -->
-    <p class="mensagem-erro" *ngIf="mensagemErro">{{ mensagemErro }}</p>
+    <p class="mensagem-erro" *ngIf="mensagemErro">{{mensagemErro}}</p>
   </div>
 </div>

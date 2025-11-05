@@ -1,0 +1,15 @@
+.config-page { padding: 16px; color: #e5e7eb; background: #0b0b0b; min-height: 100%; }
+.config-page.claro { color: #111; background: #f3f4f6; }
+.bloco { border: 1px solid #2a2a2a; border-radius: 12px; padding: 12px; margin-bottom: 16px; background: #0f0f0f; }
+.config-page.claro .bloco { background: #fff; border-color: #e5e7eb; }
+.linha { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
+.linha label { width: 180px; color: #9ca3af; }
+.config-page.claro .linha label { color: #374151; }
+.preview { display: flex; border: 1px dashed #444; border-radius: 10px; overflow: hidden; margin-top: 10px; }
+.prev-barra { width: 120px; background: var(--barra); padding: 10px; color: #fff; }
+.prev-conversa { flex: 1; background: var(--conversa); padding: 10px; }
+.msg { padding: 6px 8px; border-radius: 10px; margin: 6px 0; }
+.msg.usuario { background: rgba(99,102,241,0.15); }
+.msg.nexus { background: rgba(16,185,129,0.15); }
+.nota { color: #9ca3af; font-size: 12px; margin-top: 6px; }
+.config-page.claro .nota { color: #6b7280; }

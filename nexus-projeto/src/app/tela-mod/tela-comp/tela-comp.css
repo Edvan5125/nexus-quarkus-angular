@@ -1,4 +1,3 @@
-/* estilos gerais do chat com foco em contraste e legibilidade */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 .caixa-chat {
@@ -17,6 +16,7 @@
   flex-direction: column;
   align-items: center;
   padding-top: 20px;
+  position: relative;
 }
 
 /* logo do app */
@@ -51,6 +51,59 @@
 .botao-config:hover {
   color: #c084fc;
 }
+
+/* botão de pontos com badge */
+.botao-pontos {
+  position: relative;
+  background: none;
+  border: none;
+  color: #a855f7;
+  font-size: 24px;
+  cursor: pointer;
+}
+.botao-pontos:hover { color: #c084fc; }
+.badge-pontos {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 999px;
+}
+
+/* painel de pontos que aparece ao lado da barra lateral */
+.bloco-pontos {
+  position: absolute;
+  left: 80px;
+  top: 70px;
+  z-index: 50;
+  background: #0f0f0f;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  width: 300px;
+  color: #fff;
+}
+.bloco-pontos .cabecalho-pontos { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-bottom: 1px solid #2a2a2a; }
+.bloco-pontos .cabecalho-pontos .titulo { font-weight: 700; color: #a855f7; }
+.bloco-pontos .cabecalho-pontos .fechar { background: #27272a; color: #e5e7eb; border: 1px solid #3f3f46; border-radius: 6px; padding: 2px 6px; cursor: pointer; }
+.bloco-pontos .resumo-pontos { padding: 12px; display: grid; gap: 8px; }
+.bloco-pontos .resumo-pontos .linha { display: flex; justify-content: space-between; }
+.bloco-pontos .xp-area { display: flex; align-items: center; gap: 8px; }
+.bloco-pontos .xp-barra { flex: 1; height: 8px; background: #2a2a2a; border-radius: 999px; overflow: hidden; }
+.bloco-pontos .xp-preenchimento { height: 100%; background: linear-gradient(90deg, #34d399, #60a5fa); width: 0%; }
+.bloco-pontos .xp-texto { color: #9ca3af; font-size: 12px; }
+.bloco-pontos .historico { max-height: 220px; overflow-y: auto; border-top: 1px solid #2a2a2a; border-bottom: 1px solid #2a2a2a; }
+.bloco-pontos .hist-titulo { padding: 10px 12px; color: #9ca3af; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.bloco-pontos ul { list-style: none; margin: 0; padding: 0 12px 12px 12px; }
+.bloco-pontos li { display: flex; justify-content: space-between; gap: 8px; padding: 6px 0; border-bottom: 1px dashed #242424; }
+.bloco-pontos li:last-child { border-bottom: none; }
+.bloco-pontos .quando { color: #9ca3af; font-size: 12px; }
+.bloco-pontos .motivo { color: #e5e7eb; font-size: 13px; }
+.bloco-pontos .acoes { padding: 10px 12px; display: flex; justify-content: flex-end; }
+.bloco-pontos .acoes button { background: #a855f7; border: none; color: #fff; padding: 6px 10px; border-radius: 8px; cursor: pointer; }
 
 /* area principal do chat */
 .area-conversa {
@@ -88,6 +141,22 @@
   display: flex;
   align-items: center;
 }
+
+/* badge de pontos com barra de XP */
+.pontos-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 10px;
+  background: #0f0f0f;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  padding: 6px 10px;
+}
+.pontos-badge .pontos-num { font-weight: 700; color: #ffd54a; }
+.pontos-badge .nivel { color: #9ca3af; font-size: 12px; }
+.barra-xp { width: 80px; height: 6px; background: #2a2a2a; border-radius: 999px; overflow: hidden; }
+.barra-xp .preenchimento { height: 100%; background: linear-gradient(90deg, #34d399, #60a5fa); width: 0%; }
 
 .perfil {
   display: flex;
@@ -135,7 +204,9 @@
   padding: 6px;
   border-radius: 6px;
 }
-.botao-perfil:hover { background: rgba(168,85,247,0.08); }
+.botao-perfil:hover { 
+  background: rgba(168,85,247,0.08); 
+}
 
 /* bloco de perfil que abre abaixo do cabecalho */
 .bloco-perfil {
@@ -149,12 +220,26 @@
   z-index: 40;
   min-width: 220px;
 }
-.conteudo-bloco { padding: 14px; color: #fff; }
-.titulo-bloco { font-weight: 700; color: #a855f7; margin-bottom: 10px; }
-.item-bloco { margin-bottom: 8px; font-size: 13px; color: #e6e6e6; }
-.acoes-bloco { display: flex; justify-content: flex-end; }
-.botao-fechar { background: #a855f7; border: none; color: #fff; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
-.botao-fechar:hover { background: #9333ea; }
+.conteudo-bloco { 
+  padding: 14px; color: #fff; 
+}
+.titulo-bloco { 
+
+  font-weight: 700; color: #a855f7; margin-bottom: 10px; 
+}
+.item-bloco { 
+  margin-bottom: 8px; font-size: 13px; color: #e6e6e6; 
+}
+.acoes-bloco { 
+ 
+  display: flex; justify-content: flex-end; 
+}
+.botao-fechar { 
+  background: #a855f7; border: none; color: #fff; padding: 6px 10px; border-radius: 6px; cursor: pointer; 
+}
+.botao-fechar:hover {
+   background: #9333ea; 
+}
 
 /* lista de mensagens da conversa */
 .lista-mensagens {
@@ -165,6 +250,7 @@
   gap: 15px;
   overflow-y: auto;
   position: relative;
+  user-select: text;
 }
 
 /* bolhas de mensagem para usuario e nexus */
@@ -174,8 +260,14 @@
   max-width: 60%;
   color: #fff;
 }
-.usuario { align-self: flex-start; background: #7e22ce; }
-.nexus { align-self: flex-end;   background: #9333ea; }
+.usuario { 
+  
+  
+  align-self: flex-start; background: #7e22ce; 
+}
+.nexus { 
+  align-self: flex-end;   background: #9333ea; 
+}
 
 /* area onde digitamos a mensagem */
 .area-entrada {
@@ -206,8 +298,12 @@
   padding: 10px 14px;
   border-radius: 12px;
   cursor: pointer;
+
 }
-.botao-texto:hover { background: #111827; }
+.botao-texto:hover { 
+
+  background: #111827; 
+}
 
 /* botao de enviar mensagem */
 .botao-enviar {
@@ -221,18 +317,68 @@
   cursor: pointer;
   transition: background 0.2s, transform 0.06s;
 }
-.botao-enviar:hover { background: #9333ea; transform: translateY(-1px); }
+.botao-enviar:hover 
+{ 
+  background: #9333ea; transform: translateY(-1px); 
+}
 
-/* estilos do leitor de texto integrado foram simplificados */
+/* conquistas: botão e badge */
+.botao-conquistas {
+  position: relative;
+  background: #1f2937;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.botao-conquistas:hover { background: #111827; }
+.badge-conquistas {
+  position: absolute; top: -6px; right: -6px;
+  background: #f59e0b; color: #111; border-radius: 9999px;
+  padding: 2px 6px; font-size: 12px; font-weight: 700;
+}
 
-/* estilos das marcas de grifo coloridas */
-.marca-vermelho { background: #fca5a5; color: #111; border-radius: 3px; padding: 0 2px; }
-.marca-azul { background: #93c5fd; color: #111; border-radius: 3px; padding: 0 2px; }
-.marca-verde { background: #86efac; color: #111; border-radius: 3px; padding: 0 2px; }
+/* painel lateral de conquistas */
+.bloco-conquistas {
+  position: absolute;
+  left: 64px; top: 10px; bottom: 10px;
+  width: 320px;
+  background: #0f0f0f;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex; flex-direction: column;
+  gap: 10px;
+  z-index: 40;
+}
+.cabecalho-conq { display: flex; justify-content: space-between; align-items: center; }
+.cabecalho-conq .titulo { font-weight: 700; }
+.bloco-conquistas .fechar { background: transparent; border: none; color: #bbb; cursor: pointer; }
+.lista-conquistas ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.lista-conquistas li { display: flex; gap: 10px; padding: 8px; border: 1px solid #222; border-radius: 10px; align-items: flex-start; }
+.lista-conquistas li.desbloqueada { border-color: #10b98144; background: #065f4622; }
+.lista-conquistas .status { width: 22px; flex: 0 0 22px; text-align: center; }
+.lista-conquistas .info .titulo { font-weight: 600; }
+.lista-conquistas .info .desc { color: #aaa; font-size: 13px; }
+.lista-conquistas .info .quando { color: #8ab; font-size: 12px; margin-top: 4px; }
+.historico-conq .hist-titulo { font-weight: 600; margin: 6px 0; }
+.historico-conq ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.historico-conq li { display: flex; gap: 8px; color: #ccc; font-size: 13px; }
+.historico-conq li .quando { color: #8ab; }
+
+
+/* (removido) estilos de grifo com classes .marca-* foram descontinuados */
 
 /* estilos da barra de rolagem da lista de mensagens */
-.lista-mensagens::-webkit-scrollbar { width: 8px; }
-.lista-mensagens::-webkit-scrollbar-thumb { background: #3b3b3b; border-radius: 10px; }
+.lista-mensagens::-webkit-scrollbar { 
+
+  width: 8px; 
+}
+.lista-mensagens::-webkit-scrollbar-thumb { 
+  background: #3b3b3b; border-radius: 10px; 
+}
 
 /* animacao do texto digitando */
 .typing {
@@ -241,19 +387,23 @@
 }
 
 .typing::after {
+
   content: '...';
   animation: dots 1.2s steps(3, end) infinite;
 }
 
 @keyframes dots {
+
   0% { content: ''; }
   33% { content: '.'; }
   66% { content: '..'; }
   100% { content: '...'; }
+
 }
 
 /* popover de selecao que aparece perto da selecao de texto */
 .popup-selecao {
+
   position: absolute;
   z-index: 50;
   background: #0f0f0f;
@@ -262,6 +412,7 @@
   padding: 6px 8px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.6);
   color: #e5e7eb;
+
 }
 .popup-selecao::after {
   content: '';
@@ -271,18 +422,42 @@
   border-width: 6px;
   border-style: solid;
   border-color: #2a2a2a transparent transparent transparent;
+
 }
 .popup-botoes {
   display: flex;
   gap: 6px;
   align-items: center;
+  flex-wrap: wrap;
 }
-.popup-botoes button { background: #a855f7; border: none; color: #fff; padding: 6px 8px; border-radius: 8px; cursor: pointer; font-size: 12px; }
-.popup-botoes .vermelho { background: #ef4444; }
-.popup-botoes .azul { background: #3b82f6; }
-.popup-botoes .verde { background: #10b981; }
-.popup-botoes .fechar { background: #27272a; border: 1px solid #3f3f46; color: #e5e7eb; }
-.popup-botoes .fechar:hover { background: #3f3f46; }
+.popup-botoes button { 
+  background: #a855f7; border: none;
+   color: #fff; padding: 6px 8px; border-radius: 8px; cursor: pointer; font-size: 12px; 
+}
+.popup-botoes .vermelho { 
+  background: #ef4444; 
+}
+
+.popup-botoes .azul { 
+  background: #3b82f6; 
+}
+.popup-botoes .verde { 
+
+
+  background: #10b981; 
+}
+.popup-botoes .amarelo { 
+  background: #f59e0b; 
+}
+.popup-botoes .fechar { 
+  background: #27272a; border: 1px solid #3f3f46; color: #e5e7eb; 
+}
+.popup-botoes .fechar:hover { 
+  background: #3f3f46;
+ }
+
+/* (removidos) estilos de paletas de cores */
+.popup-botoes .limpar { background: #f43f5e; }
 
 /* balao especial dentro da conversa do tipo balao acao */
 .balao-analise {
@@ -290,20 +465,39 @@
   border: 1px solid #2a2a2a;
   border-radius: 12px;
   padding: 10px;
+
   color: #e5e7eb;
   max-width: 80%;
 }
-.balao-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-.balao-titulo { color: #10b981; font-weight: 700; }
-.balao-acoes { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px; }
-.balao-acoes button { background: #a855f7; border: none; color: #fff; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 13px; }
-.balao-acoes .dica { color: #9ca3af; font-size: 12px; }
-.definir-inline { display: flex; gap: 6px; }
-.definir-inline input { background: #000; border: 1px solid #334155; border-radius: 8px; padding: 6px 8px; color: #fff; }
-.balao-bloco { background: #0b0b0b; border: 1px solid #2a2a2a; border-radius: 8px; padding: 8px; }
-.balao-bloco h4 { margin: 0 0 6px 0; color: #a855f7; }
+.balao-topo { 
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.balao-titulo { 
+  color: #10b981; font-weight: 700; 
+}
+.balao-acoes {
+   display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px; }
+.balao-acoes button { 
+  
+  background: #a855f7; border: none; color: #fff; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 13px;
+ }
 
-/* balao flutuante de definicao ou resumo cor verde perto da selecao */
+.balao-acoes .dica { 
+  color: #9ca3af; font-size: 12px;
+ }
+.definir-inline {
+   display: flex; gap: 6px; 
+  }
+.definir-inline input { background: #000; border: 1px solid #334155; border-radius: 8px; padding: 6px 8px; color: #fff;
+ }
+.balao-bloco { 
+
+  background: #0b0b0b; border: 1px solid #2a2a2a; border-radius: 8px; padding: 8px; }
+.balao-bloco h4 {
+
+   margin: 0 0 6px 0; color: #a855f7;
+   }
+
+/* balão de definição ou resumo cor verde perto da seleção */
 .balao-definicao {
   position: absolute;
   z-index: 60;
@@ -312,10 +506,13 @@
   border: 1px solid #7ad07a;
   border-radius: 12px;
   padding: 10px 12px;
+
   box-shadow: 0 10px 26px rgba(0,0,0,0.45);
   max-width: 320px;
+
 }
 .balao-definicao::before {
+
   content: '';
   position: absolute;
   left: 14px;
@@ -324,10 +521,26 @@
   border-style: solid;
   border-color: #7ad07a transparent transparent transparent;
 }
-.balao-def-topo { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.balao-def-topo { 
+  display: flex; 
+  align-items: center; justify-content: space-between; margin-bottom: 6px; }
 .balao-def-topo .fechar { background: #2e2e2e; color: #fff; border: 1px solid #3f3f46; padding: 2px 6px; border-radius: 6px; cursor: pointer; }
-.titulo-colorido { font-weight: 800; letter-spacing: 0.5px; color: #046307; }
-.balao-def-corpo { font-size: 14px; line-height: 1.4; }
-.balao-def-sins { margin-top: 6px; font-size: 13px; }
-.balao-def-sins ul { margin: 4px 0 0 18px; padding: 0; }
-.balao-def-sins li { margin: 2px 0; }
+.titulo-colorido { 
+  font-weight: 800; 
+  letter-spacing: 0.5px; color: #046307;
+ }
+.balao-def-corpo {
+
+   font-size: 14px; line-height: 1.4; 
+  }
+
+.balao-def-sins {
+   margin-top: 6px; font-size: 13px; }
+.balao-def-sins ul {
+
+   margin: 4px 0 0 18px; padding: 0;
+   
+   }
+.balao-def-sins li {
+   margin: 2px 0; 
+  }
