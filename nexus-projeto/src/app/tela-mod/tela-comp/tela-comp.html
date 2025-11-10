@@ -1,21 +1,26 @@
-<!-- layout principal com barra lateral e area de conversa -->
+
 <div class="caixa-chat">
 
   <!-- barra lateral com botoes -->
+
   <aside class="barra-lateral">
+
     <div class="menu">
       <button class="botao-editar">✎</button>
       <button class="botao-config" (click)="abrirConfiguracao()" aria-label="Configuração">⚙</button>
+
       <!-- pontos: icone com badge abre painel lateral de pontos -->
       <button class="botao-pontos" (click)="togglePainelPontos()" aria-label="Pontos e recompensas">
         🏆
         @if (notificacaoPontos > 0) { <span class="badge-pontos">{{ notificacaoPontos }}</span> }
       </button>
+
       <!-- conquistas: ícone com badge abre painel lateral de conquistas -->
       <button class="botao-conquistas" (click)="togglePainelConquistas()" aria-label="Conquistas e realizações">
         🏅
         @if (notificacaoConquistas > 0) { <span class="badge-conquistas">{{ notificacaoConquistas }}</span> }
       </button>
+
     </div>
 
     @if (showPontos) {
@@ -25,14 +30,18 @@
           <button class="fechar" (click)="togglePainelPontos()">✖</button>
         </div>
         <div class="resumo-pontos">
+
           <div class="linha"><span>Total:</span><strong>{{ pontos }}</strong></div>
           <div class="linha"><span>Nível:</span><strong>{{ nivel }}</strong></div>
           <div class="xp-area">
+
             <div class="xp-barra"><div class="xp-preenchimento" [style.width.%]="progressoNivel"></div></div>
             <span class="xp-texto">{{ progressoNivel }}/100</span>
           </div>
         </div>
+
         <div class="historico">
+
           <div class="hist-titulo">Histórico</div>
           <ul>
             <li *ngFor="let h of historicoPontos; let i = index; trackBy: trackByIndex">
@@ -48,25 +57,38 @@
     }
 
     @if (showConquistas) {
+
       <div class="bloco-conquistas" role="dialog" aria-label="Conquistas e realizações">
         <div class="cabecalho-conq">
+
           <span class="titulo">Conquistas</span>
+
           <button class="fechar" (click)="togglePainelConquistas()">✖</button>
+
         </div>
+
         <div class="lista-conquistas">
+
           <ul>
             <li *ngFor="let c of conquistas; let i = index; trackBy: trackByIndex" 
             [class.desbloqueada]="c.desbloqueada">
               <span class="status">{{c.desbloqueada ? '✅' : '🔒'}}</span>
+
               <div class="info">
+
                 <div class="titulo">{{c.titulo}}</div>
+
                 <div class="desc">{{ c.descricao }}</div>
+                
                 @if (c.desbloqueada && c.quando) { <div class="quando">{{c.quando}}</div> }
               </div>
             </li>
+
           </ul>
+
         </div>
         @if (historicoConquistas.length) {
+
           <div class="historico-conq">
             <div class="hist-titulo">Recentes</div>
             <ul>
@@ -76,6 +98,7 @@
               </li>
             </ul>
           </div>
+
         }
         <div class="acoes">
           <button (click)="marcarConquistasComoLidas()">Marcar como lido</button>
@@ -88,19 +111,19 @@
   <main class="area-conversa">
     <header class="cabecalho-conversa">
         <div class="cabecalho-esquerda">
-  <!-- logotipo simples do app -->
   <div class="logo-titulo">NEXUS</div>
       </div>
 
       <div class="cabecalho-direita">
         <div class="perfil" role="region" aria-label="perfil">
           <div class="perfil-info">
+
           
           </div>
           <!-- botao que abre o bloco com detalhes do usuario -->
           <button class="botao-perfil" (click)="togglePerfil()" aria-expanded="{{showPerfil}}" aria-controls="bloco-perfil">👤</button>
 
-          <!-- bloco com dados do perfil aparece quando showperfil esta ativo -->
+          <!-- bloco com dados do perfil aparece quando showperfil ta ativo -->
           @if (showPerfil) {
           <div id="bloco-perfil" class="bloco-perfil" role="dialog" aria-modal="false">
             <div class="conteudo-bloco">
@@ -116,6 +139,7 @@
   <!-- lista onde as mensagens sao mostradas -->
   <div class="lista-mensagens" #mensagensArea (mouseup)="onMouseUpMensagens($event)">
 
+
       <div
         *ngFor="let msg of mensagem; trackBy:
          trackByIndex"
@@ -126,6 +150,7 @@
           <div class="pontos-badge" title="Seus pontos">
             ⭐ <span class="pontos-num">{{ pontos }}</span>
             <div class="barra-xp">
+
               <div class="preenchimento" [style.width.%]="progressoNivel"></div>
             </div>
             <span class="nivel">Nv {{ nivel }}</span>
@@ -165,12 +190,14 @@
 
                       <div class="sinonimos">
                         <span>Sinônimos:</span>
+
                         <ul>
 
                             <li *ngFor="let s of msg.sinonimos">{{s}}</li>
                         </ul>
                       </div>
                     }
+
                   </div>
                 }
 
@@ -217,6 +244,7 @@
           }
         </div>
       }
+
     </div>
 
   <!-- area onde digita e envia mensagens -->
@@ -232,5 +260,9 @@
       />
         <button class="botao-enviar" (click)="mandarMensagem()" aria-label="enviar">✉️</button>
     </div>
+
   </main>
+
+
+
 </div>

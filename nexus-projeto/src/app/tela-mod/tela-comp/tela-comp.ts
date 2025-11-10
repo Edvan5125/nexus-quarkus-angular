@@ -168,10 +168,10 @@ export class TelaComp {
 
   // mostra o popop quando existe selecao dentro da lista de mensagens
   // passos:
-  // 1) pega a selecao atual do documento e verifica se esta dentro do container
-  // 2) se estiver vazia (isCollapsed) oculta o popup
-  // 3) calcula o retangulo da selecao e do container para obter posicao relativa
-  // 4) posiciona o popup acima da selecao com margem minima e exibe
+  // 1 pega a selecao atual do documento e verifica se esta dentro do container
+  // 2 se estiver vazia (isCollapsed) oculta o popup
+  // 3 calcula o retangulo da selecao e do container para obter posicao relativa
+  // 4 posiciona o popup acima da selecao com margem minima e exibe
   onMouseUpMensagens(_event?: MouseEvent): void {
     const sel = this.getSelecaoIn(this.mensagensArea?.nativeElement);
     if (!sel || sel.isCollapsed) { this.showPopup = false; return; }
@@ -220,7 +220,7 @@ export class TelaComp {
 
 
   // consulta o dicionario pra a palavra selecionada
-  // deixa a chave para minusculo sem acentos (nfd + regex de diacriticos)
+  // deixa a chave minusculo sem acentos 
   // se nao houver definicao exibe mensagem padrao
   definirSelecao(): void {
     const sel = this.getSelecaoIn(this.mensagensArea?.nativeElement);
@@ -309,7 +309,6 @@ export class TelaComp {
     this.showBalaoAcao = false;
   }
 
-  // funcao usada pelo ngfor para melhorar desempenho
   // o angular usa esse numero para identificar cada item da lista
   // evita recriar componentes quando apenas o conteudo muda
   trackByIndex(index: number):  number {
@@ -317,11 +316,11 @@ export class TelaComp {
   }
 
   // quando o usuario envia uma mensagem este metodo e chamado
-  // passo 1 pega o texto e remove espacos nas pontas com trim
-  // passo 2 se ficar vazio nao faz nada
-  // passo 3 adiciona a mensagem do usuario na lista
-  // passo 4 adiciona uma mensagem  dizendo que o nexus esta digitando
-  // passo 5 depois de um tempo troca pela resposta gerada
+  // 1 pega o texto e remove espacos nas pontas com trim
+  // 2 se ficar vazio nao faz nada
+  //  3 adiciona a mensagem do usuario na lista
+  //  4 adiciona uma mensagem  dizendo que o nexus esta digitando
+  // 5 depois de um tempo troca pela resposta gerada
   mandarMensagem(): void {
     const texto = this.novaMensagem.trim();
     if (!texto) return;
@@ -401,9 +400,9 @@ export class TelaComp {
     return 'interessante mas ainda estou aprendendo a responder isso';
   }
 
-  // ===== Gamificação =====
+  
   private salvarPontos(): void {
-    // sem persistência
+
   }
 
   private atualizarNivel(): void {
@@ -412,75 +411,85 @@ export class TelaComp {
   }
 
   ganharPontos(qtd: number, motivo: string): void {
+
     if (!qtd) return;
     this.pontos += qtd;
     this.salvarPontos();
     this.atualizarNivel();
-    // registra histórico e avisa via badge (sem mensagem no chat)
+    // registra histórico e avisa via badge 
     this.registrarHistorico(qtd, motivo);
-    this.notificacaoPontos += qtd; // soma simples: quantidade como contagem
+    this.notificacaoPontos += qtd; // soma quantidade como contagem
+
   }
 
   private registrarHistorico(qtd: number, motivo: string): void {
     const registro = { quando: new Date().toLocaleString('pt-BR'), qtd, motivo };
     this.historicoPontos.unshift(registro);
+
     // limitar tamanho do histórico
     if (this.historicoPontos.length > 50) this.historicoPontos = this.historicoPontos.slice(0, 50);
   }
 
-  // ===== utilitários de conquistas =====
+
   private salvarContadores(): void {
-    // sem persistência
   }
 
   private salvarConquistas(): void {
-    // sem persistência
+
   }
 
   private desbloquearConquista(chave: string, mensagem: string): void {
     const c = this.conquistas.find(cq => cq.chave === chave);
     if (!c || c.desbloqueada) return;
-    c.desbloqueada = true;
-    c.quando = new Date().toLocaleString('pt-BR');
-    this.historicoConquistas.unshift({ quando: c.quando, titulo: c.titulo, mensagem });
+      c.desbloqueada = true;
+      c.quando = new Date().toLocaleString('pt-BR');
+        this.historicoConquistas.unshift({ quando: c.quando, titulo: c.titulo, mensagem });
     this.notificacaoConquistas += 1;
-    this.salvarConquistas();
+      this.salvarConquistas();
   }
 
   private checkConquistas(): void {
     if (this.contResumos >= 1) this.desbloquearConquista('PRIMEIRO_RESUMO', 'Você ganhou a conquista "Primeiro Resumo"!');
     if (this.contResumos >= 10) this.desbloquearConquista('RESUMIDOR_RAPIDO', 'Você ganhou a conquista "Resumidor Rápido" por resumir 10 textos!');
-    if (this.contDefinicoes >= 10) this.desbloquearConquista('ESPECIALISTA_DEFINICAO', 'Você ganhou a conquista "Especialista em Definição" por definir 10 palavras!');
+      if (this.contDefinicoes >= 10) this.desbloquearConquista('ESPECIALISTA_DEFINICAO', 'Você ganhou a conquista "Especialista em Definição" por definir 10 palavras!');
   }
 
   togglePainelConquistas(): void {
     this.showConquistas = !this.showConquistas;
     if (this.showConquistas) this.marcarConquistasComoLidas();
+
+
   }
 
   marcarConquistasComoLidas(): void {
     this.notificacaoConquistas = 0;
+
     this.salvarConquistas();
   }
-
-  // (removidos) utilitários de textos pré-definidos
-
   togglePainelPontos(): void {
     this.showPontos = !this.showPontos;
     if (this.showPontos) this.marcarPontosComoLidos();
+
   }
+
 
   marcarPontosComoLidos(): void {
     this.notificacaoPontos = 0;
+    
   }
+
 
   private closestMsg(node: Node | null): HTMLElement | null {
     let el: Node | null = node;
     while (el && el instanceof HTMLElement === false) el = el.parentNode;
     while (el && el instanceof HTMLElement) {
       const h = el as HTMLElement;
+
       if (h.classList && (h.classList.contains('usuario') || h.classList.contains('nexus'))) return h;
+
       el = h.parentElement;
+
+
     }
     return null;
   }
