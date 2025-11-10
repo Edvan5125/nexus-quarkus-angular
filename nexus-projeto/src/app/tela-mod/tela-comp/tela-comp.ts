@@ -42,7 +42,7 @@ export class TelaComp {
   // informacoes do usuario pegadas do localstorage apos login
   // chaves usadas: 'usuario' e 'email'; se nao tem aplica padrao
   // estes dados sao usados para personalizar a interface
-  userNome: string =   localStorage.getItem('usuario') || 'Usuário';
+  userNome: string = localStorage.getItem('usuario') || 'Usuário';
   userEmail: string = localStorage.getItem('email') || '';
 
   // gamificação: pontos, nível e progresso (sem persistência; reinicia a cada recarga)
@@ -55,16 +55,15 @@ export class TelaComp {
   showPontos: boolean = false;
 
 
-  // ===== Conquistas (Realizações) =====
   // contadores e estado persistido
   contResumos: number = 0;
   contDefinicoes: number = 0;
 
-  conquistas: Array<{ chave: string; titulo: string; descricao: string; desbloqueada: boolean; quando?: string }> = (() => {
+  conquistas: Array<{chave: string; titulo: string; descricao: string; desbloqueada: boolean; quando?: string}> = (() => {
     const padrao = [
-      { chave: 'PRIMEIRO_RESUMO', titulo: 'Primeiro Resumo', descricao: 'Você criou seu primeiro resumo.', desbloqueada: false },
-      { chave: 'RESUMIDOR_RAPIDO', titulo: 'Resumidor Rápido', descricao: 'Resumiu 10 textos.', desbloqueada: false },
-      { chave: 'ESPECIALISTA_DEFINICAO', titulo: 'Especialista em Definição', descricao: 'Definiu 10 palavras.', desbloqueada: false },
+      {chave: 'PRIMEIRO_RESUMO', titulo: 'Primeiro Resumo', descricao: 'Você criou seu primeiro resumo.', desbloqueada: false},
+      {chave: 'RESUMIDOR_RAPIDO', titulo: 'Resumidor Rápido', descricao: 'Resumiu 10 textos.', desbloqueada: false},
+      {chave: 'ESPECIALISTA_DEFINICAO', titulo: 'Especialista em Definição', descricao: 'Definiu 10 palavras.', desbloqueada: false},
     ];
     return padrao;
   })();
@@ -72,8 +71,6 @@ export class TelaComp {
   historicoConquistas: Array<{ quando: string; titulo: string; mensagem: string }> = [];
   notificacaoConquistas: number = 0;
   showConquistas: boolean = false;
-
-  // (removidos) textos pré-definidos
 
 
   // controla o bloco de perfil
@@ -177,7 +174,6 @@ export class TelaComp {
     if (!sel || sel.isCollapsed) { this.showPopup = false; return; }
     const range = sel.getRangeAt(0);
      const rect =range.getBoundingClientRect();
-
     const host = this.mensagensArea?.nativeElement;
     if (!host) { this.showPopup = false; return; }
     const hostRect = host.getBoundingClientRect();
@@ -230,9 +226,9 @@ export class TelaComp {
     let conteudo = 'Sem definição';
     let sins: string[] = [];
     const def = this.dicionario[chave];
-    if (def) { conteudo = def.significado; sins = def.sinonimos; }
+    if (def) {conteudo = def.significado; sins = def.sinonimos;}
     this.mostrarBalaoAcao(titulo, conteudo,  this.popupX, this.popupY, sins);
-    if (textoSel) { this.ganharPontos(5, 'definir uma palavra'); this.contDefinicoes++; this.salvarContadores(); this.checkConquistas(); }
+    if (textoSel) {this.ganharPontos(5, 'definir uma palavra'); this.contDefinicoes++; this.salvarContadores(); this.checkConquistas();}
   }
 
   // configura e exibe o balao verde com titulo conteudo e alguns sinonimos
@@ -258,12 +254,12 @@ export class TelaComp {
 
   // preenche definicao e sinonimos para a palavra do balao-acao
   // aplica a mesma regra de chave usada em definirselecao 
-  definirPalavraBalao(msg: { palavra?: string; definicao?: string; sinonimos?: string[] }): void {
+  definirPalavraBalao(msg: {palavra?: string; definicao?: string; sinonimos?: string[]}): void {
     const chave = (msg.palavra || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
     const def = this.dicionario[chave];
-    if (def) { msg.definicao = def.significado; msg.sinonimos = def.sinonimos; }
-    else { msg.definicao = 'Sem definição local.'; msg.sinonimos = []; }
-    if (msg.palavra && msg.palavra.trim()) { this.ganharPontos(5, 'definir uma palavra'); this.contDefinicoes++; this.salvarContadores(); this.checkConquistas(); }
+    if (def) {msg.definicao = def.significado; msg.sinonimos = def.sinonimos;}
+    else {msg.definicao = 'Sem definição local.'; msg.sinonimos = [];}
+    if (msg.palavra && msg.palavra.trim()) {this.ganharPontos(5, 'definir uma palavra'); this.contDefinicoes++; this.salvarContadores(); this.checkConquistas();}
   }
 
   // fecha o popup caso o ultimo clique nao tenha sido dentro dele
@@ -346,7 +342,7 @@ export class TelaComp {
         // se o texto é igual ao alvo o nexus pergunta e mostra o balao de acoes
   const pergunta = 'O que deseja fazer com o texto?';
   this.mensagem.push({ text: pergunta, sender: 'nexus' });
-        this.mensagem.push({ sender: 'nexus', tipo: 'balao-acao', textoAlvo: texto, palavra: '', resumo: '', definicao: '', sinonimos: [] });
+        this.mensagem.push({ sender: 'nexus', tipo: 'balao-acao', textoAlvo: texto, palavra: '', resumo: '', definicao: '', sinonimos: []});
       } else {
         const  resposta = this.gerarRespostaAutomatica(texto);
   this.mensagem.push({ text: resposta, sender: 'nexus' });
@@ -423,7 +419,7 @@ export class TelaComp {
   }
 
   private registrarHistorico(qtd: number, motivo: string): void {
-    const registro = { quando: new Date().toLocaleString('pt-BR'), qtd, motivo };
+    const registro = {quando: new Date().toLocaleString('pt-BR'), qtd, motivo};
     this.historicoPontos.unshift(registro);
 
     // limitar tamanho do histórico

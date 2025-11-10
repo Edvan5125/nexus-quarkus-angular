@@ -29,7 +29,7 @@ export class NexusComponent {
     }
 
     // autenticacao pedida pelo usuario usuario Edvan e senha 1234
-    if (this.usuario ===  'Edvan' && this.senha === '1234') {
+    if (this.usuario === 'Edvan' && this.senha === '1234') {
       // guarda o nome e email no localstorage para usar depois se quiser
       localStorage.setItem('usuario', this.usuario);
 
