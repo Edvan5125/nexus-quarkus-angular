@@ -1,58 +1,95 @@
 <div class="config-page" [class.claro]="tema==='claro'" [style.fontSize.px]="tamanhoFonte">
+	
+
 	<h2>Configuração</h2>
 
 	<section class="bloco">
+		<!-- bloco aparencia: tema cores e tamanho de fonte -->
 		<h3>Aparência (visual)</h3>
+
 		<div class="linha">
+			<!-- selecionar de tema claro/escuro -->
 			<label>Tema:</label>
+
 			<select [(ngModel)]="tema">
+
 				<option value="escuro">Escuro</option>
 				<option value="claro">Claro</option>
+
 			</select>
+
 		</div>
-		<div class="linha">
+
+		 <div class="linha">
+
+			<!-- cor primaria -->
 			<label>Cor Primária:</label>
 			<input type="color" [(ngModel)]="corPrimaria" />
+
 		</div>
+
 		<div class="linha">
+			<!-- cor da barra lateral  -->
 			<label>Barra Lateral:</label>
 			<input type="color" [(ngModel)]="corBarraLateral" />
 		</div>
+
 		<div class="linha">
+			<!-- cor de fundo da conversa -->
 			<label>Fundo da Conversa:</label>
 			<input type="color" [(ngModel)]="corConversa" />
 		</div>
+
 		<div class="linha">
+			<!-- controle de tamanho da fonte entre 12 e 20px -->
 			<label>Tamanho da Fonte: {{tamanhoFonte}}px</label>
 			<input type="range" min="12" max="20" [(ngModel)]="tamanhoFonte" />
 		</div>
 
+		<!--  escolhas usando variaveis css -->
 		<div class="preview" [style.--primaria]="corPrimaria" [style.--barra]="corBarraLateral" [style.--conversa]="corConversa">
+
 			<aside class="prev-barra">Barra</aside>
+
 			<main class="prev-conversa">
+
 				<div class="msg usuario"><strong>Você:</strong> Exemplo de mensagem do usuário.</div>
 				<div class="msg nexus"><strong>NexusBot:</strong> Exemplo de resposta do bot.</div>
+
 			</main>
 		</div>
-		<p class="nota">Estas configurações são apenas visuais nesta página e não são aplicadas globalmente.</p>
+
+
 	</section>
 
 	<section class="bloco">
+		<!-- bloco personalidade: apenas texto e rotulos visuais  -->
 		<h3>Personalidade do Nexus (visual)</h3>
+
 		<div class="linha">
+			<!-- seletor do estilo de personalidade (visual) -->
 			<label>Estilo:</label>
 			<select [(ngModel)]="personalidade">
+
 				<option>Amigável</option>
+
+			
 				<option>Profissional</option>
 				<option>Divertido</option>
 				<option>Neutro</option>
+				
 			</select>
 		</div>
+
 		<div class="linha">
+			<!-- descricao da personalidade  -->
 			<label>Descrição (não funcional):</label>
-			<textarea [(ngModel)]="descricaoPersonalidade" rows="3" placeholder="Descreva a personalidade (apenas visual)"></textarea>
+
+			<textarea [(ngModel)]="descricaoPersonalidade" rows="3" placeholder="Descreva a personalidade"></textarea>
+
 		</div>
-		<p class="nota">Este bloco é apenas uma prévia visual. Não altera o comportamento do chat.</p>
+
+	
 	</section>
 
 </div>
