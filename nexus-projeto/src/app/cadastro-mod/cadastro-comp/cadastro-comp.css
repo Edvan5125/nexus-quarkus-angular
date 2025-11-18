@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+
+.caixa-entrada {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	background: linear-gradient(135deg, #1b1b1b, #0f0f0f);
+	font-family: 'Inter', sans-serif;
+	color: #fff;
+}
+
+.cartao-entrada {
+	background: #141414;
+	padding: 40px;
+	border-radius: 15px;
+	box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+	width: 360px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+}
+
+.titulo {
+	color: #a855f7;
+	margin-bottom: 10px;
+	font-size: 32px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+.subtitulo {
+	color: #ccc;
+	margin-bottom: 25px;
+	font-size: 14px;
+}
+
+.cartao-entrada input,
+.cartao-entrada select {
+	width: 100%;
+	margin-bottom: 15px;
+	padding: 10px 15px;
+	border-radius: 25px;
+	border: none;
+	background: #000;
+	color: white;
+	text-align: center;
+	font-size: 15px;
+	outline: none;
+	transition: 0.3s;
+}
+
+.cartao-entrada input:focus,
+.cartao-entrada select:focus {
+	outline: 2px solid #a855f7;
+}
+
+.cartao-entrada button {
+	width: 100%;
+	background: #a855f7;
+	border: none;
+	border-radius: 25px;
+	padding: 10px;
+	color: white;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background 0.3s, transform 0.1s;
+}
+
+.cartao-entrada button:hover {
+	background: #9333ea;
+	transform: scale(1.02);
+}
+
+.mensagem-erro {
+	margin-top: 5px;
+	color: #ff6961;
+	font-size: 13px;
+}
+
+.mensagem-sucesso {
+	margin-top: 5px;
+	color: #34d399;
+	font-size: 13px;
+}
+

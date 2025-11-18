@@ -1,0 +1,85 @@
+<div class="caixa-entrada">
+	<div class="cartao-entrada adm">
+		<h1 class="titulo">Administrador</h1>
+		<p class="subtitulo">Gerencie os usuários cadastrados</p>
+
+		<div class="form-bloco">
+			<div class="duas-colunas">
+				<input
+					type="text"
+					[value]="novoUsuario.usuario"
+					(input)="novoUsuario.usuario = $event.target.value"
+					placeholder="Usuário"
+					aria-label="usuario"
+				/>
+				<input
+					type="email"
+					[value]="novoUsuario.email"
+					(input)="novoUsuario.email = $event.target.value"
+					placeholder="E-mail"
+					aria-label="email"
+				/>
+			</div>
+			<div class="duas-colunas">
+				<input
+					type="password"
+					[value]="novoUsuario.senha"
+					(input)="novoUsuario.senha = $event.target.value"
+					placeholder="Senha"
+					aria-label="senha"
+					[disabled]="editandoId !== null"
+				/>
+						<select
+
+							[value]="novoUsuario.tipoUsuario"
+
+							(change)="onTipoChange($event)"
+							aria-label="tipo-usuario"
+							class="seletor"
+						>
+					<option value="" disabled selected>Tipo de usuário</option>
+					<option value="Dislexicia">Dislexicia</option>
+					<option value="TDAH">TDAH</option>
+				</select>
+			</div>
+
+			<div class="acoes-form">
+						<button *ngIf="editandoId === null" (click)="criar()" disabled>Criar usuário</button>
+				<div *ngIf="editandoId !== null" class="grupo-edicao">
+							<button class="primario" (click)="salvarEdicao()" disabled>Salvar</button>
+
+							<button class="secundario" (click)="cancelarEdicao()" disabled>Cancelar</button>
+				</div>
+			</div>
+
+			<p class="mensagem-erro" *ngIf="mensagemErro">{{ mensagemErro }}</p>
+			<p class="mensagem-sucesso" *ngIf="mensagemSucesso">{{ mensagemSucesso }}</p>
+		</div>
+
+		
+		<div class="lista-bloco">
+			
+			<div class="acoes-topo">
+				<button class="mini" (click)="listar()">Listar usuários</button>
+			</div>
+			<div class="cabecalho-lista">
+				<span>Usuário</span>
+				<span>E-mail</span>
+				<span>Tipo</span>
+				<span class="acoes">Ações</span>
+			</div>
+			<div *ngFor="let u of usuarios" class="linha-lista">
+				<span>{{ u.usuario }}</span>
+				
+				<span>{{ u.email }}</span>
+				<span>{{ u.tipoUsuario }}</span>
+
+				<span class="acoes">
+								<button class="mini" (click)="iniciarEdicao(u)" disabled>Editar</button>
+								<button class="mini perigo" (click)="remover(u.id)" disabled>Remover</button>
+				</span>
+			</div>
+			<div *ngIf="usuarios.length === 0" class="vazio">Nenhum usuário cadastrado.</div>
+		</div>
+	</div>
+</div>

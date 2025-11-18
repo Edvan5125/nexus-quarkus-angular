@@ -28,12 +28,25 @@ export class NexusComponent {
 
     }
 
+    // credenciais de administrador: ADM / ADM1234
+    if (this.usuario === 'ADM' && this.senha === 'ADM1234') {
+      // seta flag de admin e segue para a tela de administrador
+      localStorage.setItem('usuario', this.usuario);
+      localStorage.setItem('email', this.email);
+      localStorage.setItem('isAdmin', 'true');
+
+      this.mensagemErro = '';
+      this.router.navigate(['/adm']);
+      return;
+    }
+
     // autenticacao pedida pelo usuario usuario Edvan e senha 1234
     if (this.usuario === 'Edvan' && this.senha === '1234') {
       // guarda o nome e email no localstorage para usar depois se quiser
       localStorage.setItem('usuario', this.usuario);
 
       localStorage.setItem('email', this.email);
+      localStorage.setItem('isAdmin', 'false');
 
           // limpa a mensagem de erro e navega para a rota telaprincipal
       this.mensagemErro = '';
@@ -46,5 +59,10 @@ export class NexusComponent {
     // caso contrario mostra erro
     this.mensagemErro = 'Usuário ou senha incorretos.';
 
+  }
+
+  // leva o usuario para a tela de cadastro
+  irParaCadastro(): void {
+    this.router.navigate(['/cadastro']);
   }
 }

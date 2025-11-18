@@ -78,3 +78,19 @@
   color: #ff6961;
   font-size: 13px;
 }
+
+/* link estilizado para ir ao cadastro mantendo o padrao visual */
+.link-cadastro {
+  margin-top: 8px;
+  width: 100%;
+  background: transparent;
+  color: #a855f7;
+  border: 1px dashed #3b3b3b;
+  border-radius: 25px;
+  padding: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.link-cadastro:hover {
+  background: rgba(168, 85, 247, 0.08);
+}

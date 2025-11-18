@@ -1,0 +1,52 @@
+<div class="caixa-entrada">
+	<div class="cartao-entrada">
+		<h1 class="titulo">Cadastro</h1>
+		<p class="subtitulo">Crie sua conta para continuar</p>
+
+		<input
+			type="text"
+			[value]="usuario"
+				(input)="usuario = $event.target.value"
+
+			placeholder="Usuário"
+			aria-label="usuario"
+		/>
+
+		<input
+			type="email"
+			[value]="email"
+				(input)="email = $event.target.value"
+			placeholder="E-mail"
+			aria-label="email"
+		/>
+
+
+		<input
+			type="password"
+			[value]="senha"
+				(input)="senha = $event.target.value"
+			placeholder="Senha"
+			aria-label="senha"
+		/>
+
+			<select
+				[value]="tipoUsuario"
+				(change)="onTipoChange($event)"
+
+				aria-label="tipo-usuario"
+				class="seletor"
+			>
+			<option value="" disabled selected>Tipo de usuário</option>
+			<option value="Dislexicia">Dislexicia</option>
+			<option value="TDAH">TDAH</option>
+
+		</select>
+
+
+
+		<button (click)="cadastrar()">Cadastrar</button>
+
+		<p class="mensagem-erro" *ngIf="mensagemErro">{{ mensagemErro }}</p>
+		<p class="mensagem-sucesso" *ngIf="mensagemSucesso">{{ mensagemSucesso }}</p>
+	</div>
+</div>

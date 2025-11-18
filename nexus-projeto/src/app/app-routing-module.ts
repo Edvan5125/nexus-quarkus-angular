@@ -7,6 +7,14 @@ const routes: Routes = [
     loadChildren: () => import('./login-mod/nexus-md-module').then(m => m.NexusMdModule)
   },
   {
+    path: 'adm',
+    loadChildren: () => import('./adm-mod/adm-mod-module').then(m => m.AdmModModule)
+  },
+  {
+    path: 'cadastro',
+    loadChildren: () => import('./cadastro-mod/cadastro-mod-module').then(m => m.CadastroModModule)
+  },
+  {
     path: 'tela',
     loadChildren: () => import('./tela-mod/tela-mod-module').then(m => m.TelaModModule)
   },
@@ -14,6 +22,8 @@ const routes: Routes = [
     path: 'configuracao',
     loadChildren: () => import('./configguracao-mod/configguracao-mod-module').then(m => m.ConfigguracaoModModule)
   },
+
+
 ];
 
 @NgModule({

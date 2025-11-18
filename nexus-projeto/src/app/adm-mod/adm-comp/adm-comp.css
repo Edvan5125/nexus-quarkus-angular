@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+.caixa-entrada {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	background: linear-gradient(135deg, #1b1b1b, #0f0f0f);
+	font-family: 'Inter', sans-serif;
+	color: #fff;
+}
+
+.cartao-entrada.adm {
+	background: #141414;
+	padding: 30px;
+	border-radius: 15px;
+	box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+	width: 900px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.titulo {
+	color: #a855f7;
+	margin: 0;
+	font-size: 28px;
+	font-weight: 700;
+	letter-spacing: 1px;
+}
+
+.subtitulo {
+	color: #ccc;
+	margin-top: -6px;
+	margin-bottom: 10px;
+	font-size: 14px;
+}
+
+.form-bloco {
+	background: #0f0f0f;
+	border: 1px solid #2a2a2a;
+	border-radius: 12px;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.duas-colunas {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
+}
+
+.form-bloco input,
+.form-bloco select {
+	width: 100%;
+	padding: 10px 14px;
+	border-radius: 10px;
+	border: none;
+	background: #000;
+	color: #fff;
+	outline: none;
+}
+.form-bloco input:focus,
+.form-bloco select:focus { outline: 2px solid #a855f7; }
+
+.acoes-form { display: flex; gap: 10px; }
+.acoes-form .grupo-edicao { display: flex; gap: 10px; }
+.acoes-form button {
+	background: #a855f7; border: none; border-radius: 10px; padding: 10px 14px; color: #fff; font-weight: 600; cursor: pointer;
+}
+.acoes-form .secundario { background: transparent; border: 1px dashed #3b3b3b; color: #a855f7; }
+
+.mensagem-erro { color: #ff6961; font-size: 13px; }
+.mensagem-sucesso { color: #34d399; font-size: 13px; }
+
+.lista-bloco {
+	background: #0f0f0f;
+	border: 1px solid #2a2a2a;
+	border-radius: 12px;
+	padding: 0;
+	overflow: hidden;
+}
+.acoes-topo { display: flex; justify-content: flex-end; padding: 10px 14px; border-bottom: 1px solid #2a2a2a; }
+.cabecalho-lista, .linha-lista { display: grid; grid-template-columns: 1.2fr 1.6fr 0.8fr 0.8fr; gap: 10px; }
+
+.cabecalho-lista { background: #111; padding: 10px 14px; color: #9ca3af; font-size: 13px; border-bottom: 1px solid #2a2a2a; }
+.linha-lista { padding: 10px 14px; border-bottom: 1px dashed #2a2a2a; align-items: center; }
+.linha-lista:last-child { border-bottom: none; }
+.linha-lista .acoes { display: flex; gap: 8px; justify-content: flex-end; }
+
+.mini { background: #7e22ce; border: none; color: #fff; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 12px; }
+.mini.perigo { background: #ef4444; }
+
+.vazio { padding: 14px; color: #9ca3af; text-align: center; }
+
